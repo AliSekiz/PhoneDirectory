@@ -7,9 +7,9 @@ import android.support.annotation.NonNull;
 
 @Entity(tableName = "Contacts")
 public class Data {
-
-  /*  @ColumnInfo(name = "imgId")
-    private int imgId;*/
+    @NonNull
+    @ColumnInfo(name = "resim")
+    private int resim;
 
     @NonNull
     @ColumnInfo(name = "personName")
@@ -20,13 +20,14 @@ public class Data {
     @ColumnInfo(name = "personNumber")
     private String personNumber;
 
-  /*  public int getImgId() {
-        return imgId;
+    @NonNull
+    public int getResim() {
+        return resim;
     }
 
-    public void setImgId(int imgId) {
-        this.imgId = imgId;
-    }*/
+    public void setResim(@NonNull int resim) {
+        this.resim = resim;
+    }
 
     @NonNull
     public String getPersonName() {
