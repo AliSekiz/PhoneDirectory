@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="400dp"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="start"
+            android:id="@+id/dialogImageView"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_gravity="end"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/dialogName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <EditText
+            android:inputType="phone"
+            android:id="@+id/diaglogNumber"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+            <Button
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:text="Kaydet"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/diagloSaveNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
