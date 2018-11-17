@@ -14,11 +14,11 @@ import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
-    List<Data> data;
+    List<Data> dataList;
     LayoutInflater inflater;
     public CustomAdapter(Context c, List<Data>d){
         inflater=LayoutInflater.from(c);
-        this.data=d;
+        this.dataList=d;
 
     }
     @NonNull
@@ -32,13 +32,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull CustomAdapter.MyViewHolder myViewHolder, int i) {
-            Data item=data.get(i);
+            Data item=dataList.get(i);
             myViewHolder.setData(item,i);
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return dataList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

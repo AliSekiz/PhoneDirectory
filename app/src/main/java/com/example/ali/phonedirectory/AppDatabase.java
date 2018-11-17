@@ -7,7 +7,7 @@ import android.content.Context;
 
 @Database(entities = {Data.class},version = 1,exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
-    private static final String DB_NAME="vt.db";
+ /*   private static final String DB_NAME="vt.db";
     private static volatile AppDatabase instance;
 
     static synchronized AppDatabase getInstance(Context c){
@@ -20,7 +20,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 context,
                 AppDatabase.class,
                 DB_NAME).build();
-    }
+    }*/
 
     public abstract DataDao getDao();
 

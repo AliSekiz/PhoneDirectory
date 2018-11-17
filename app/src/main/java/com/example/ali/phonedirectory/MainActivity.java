@@ -24,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     Context context=this;
-    public static AppDatabase database;
+    AppDatabase database;
     Data data;
+
     RecyclerView recyclerView;
     LinearLayoutManager manager;
     List<Data>dataList;
@@ -35,12 +36,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         database=Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"vt.db").allowMainThreadQueries().build();
-
         dataList=database.getDao().getData();
+
         recyclerView=findViewById(R.id.dataList);
         CustomAdapter adapter=new CustomAdapter(this,dataList);
         recyclerView.setAdapter(adapter);
         manager=new LinearLayoutManager(this);
+        Toast.makeText(getApplicationContext(),String.valueOf(dataList.size()),Toast.LENGTH_LONG).show();
 
         toolbar=findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.toolbarmenu_items);
@@ -69,17 +71,21 @@ public class MainActivity extends AppCompatActivity {
         numberSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                data=new Data();
-                data.setPersonName(personName.getText().toString());
-                data.setPersonNumber(personNumber.getText().toString());
-
+                data=new Data(1,personName.getText().toString(),personNumber.getText().toString());
                 database.getDao().insertData(data);
-                Toast.makeText(getApplicationContext(),data.toString()+" Kaydedildi",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),data.getPersonNumber()+" Kaydedildi",Toast.LENGTH_SHORT).show();
 
                 dialog.dismiss();
             }
         });
         dialog.show();
     }
+   /* public void getData(){
+        for(int i=0; i<dataList.size(); i++){
+            data=dataList.get(i);
+            Log.d("Sayı",data.toString());
+        }
+
+    }*/
 
 }

@@ -46,4 +46,10 @@ public class Data {
     public void setPersonNumber(@NonNull String personNumber) {
         this.personNumber = personNumber;
     }
+
+    public Data(@NonNull int resim, @NonNull String personName, @NonNull String personNumber) {
+        this.resim = resim;
+        this.personName = personName;
+        this.personNumber = personNumber;
+    }
 }
