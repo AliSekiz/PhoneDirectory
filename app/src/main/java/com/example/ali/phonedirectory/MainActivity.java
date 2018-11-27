@@ -23,12 +23,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    Context context=this;
     AppDatabase database;
     Data data;
+    CustomAdapter adapter;
 
     RecyclerView recyclerView;
-    LinearLayoutManager manager;
     List<Data>dataList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
         database=Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"vt.db").allowMainThreadQueries().build();
         dataList=database.getDao().getData();
-
+        adapter=new CustomAdapter(this,dataList);
         recyclerView=findViewById(R.id.dataList);
-        CustomAdapter adapter=new CustomAdapter(this,dataList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-        manager=new LinearLayoutManager(this);
         Toast.makeText(getApplicationContext(),String.valueOf(dataList.size()),Toast.LENGTH_LONG).show();
 
         toolbar=findViewById(R.id.toolbar);
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void showDialog(){
-        final Dialog dialog =new Dialog(context);
+        final Dialog dialog =new Dialog(this);
         dialog.setContentView(R.layout.customdialog);
 
         Button numberSave=dialog.findViewById(R.id.diagloSaveNumber);
