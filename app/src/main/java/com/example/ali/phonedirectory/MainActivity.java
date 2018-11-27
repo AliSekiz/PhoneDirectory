@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         getData();
 
+
         toolbar=findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.toolbarmenu_items);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -66,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 data=new Data(1,personName.getText().toString(),personNumber.getText().toString());
                 database.getDao().insertData(data);
                 Toast.makeText(getApplicationContext(),data.getPersonNumber()+" Kaydedildi",Toast.LENGTH_SHORT).show();
-
                 dialog.dismiss();
                 getData();
             }
@@ -79,9 +80,7 @@ public class MainActivity extends AppCompatActivity {
         adapter=new CustomAdapter(this,dataList);
         recyclerView=findViewById(R.id.dataList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
     }
 

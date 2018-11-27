@@ -1,5 +1,6 @@
 package com.example.ali.phonedirectory;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -45,18 +46,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        Data data;
+        AppDatabase database;
         TextView name,number;
         ImageView img;
         int pos=0;
         public MyViewHolder(@NonNull final View itemView) {
             super(itemView);
+            database=Room.databaseBuilder(itemView.getContext(),AppDatabase.class,"vt.db").allowMainThreadQueries().build();
             name=itemView.findViewById(R.id.rowitem_Name);
             number=itemView.findViewById(R.id.rowitem_Number);
             img=itemView.findViewById(R.id.rowitem_ImgView);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    Toast.makeText(view.getContext(),String.valueOf(pos),Toast.LENGTH_SHORT).show();
+                    data=new Data(1,name.getText().toString(),number.getText().toString());
+                    database.getDao().deleteData(data);
+                    dataList.remove(pos);
+                    notifyItemRemoved(pos);
+                    notifyItemRangeChanged(pos,dataList.size());
                     return false;
                 }
             });
