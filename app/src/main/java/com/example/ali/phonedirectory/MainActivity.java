@@ -34,14 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        database=Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"vt.db").allowMainThreadQueries().build();
-        dataList=database.getDao().getData();
-        adapter=new CustomAdapter(this,dataList);
-        recyclerView=findViewById(R.id.dataList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
-        Toast.makeText(getApplicationContext(),String.valueOf(dataList.size()),Toast.LENGTH_LONG).show();
+        getData();
 
         toolbar=findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.toolbarmenu_items);
@@ -75,16 +68,21 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),data.getPersonNumber()+" Kaydedildi",Toast.LENGTH_SHORT).show();
 
                 dialog.dismiss();
+                getData();
             }
         });
         dialog.show();
     }
-   /* public void getData(){
-        for(int i=0; i<dataList.size(); i++){
-            data=dataList.get(i);
-            Log.d("Sayı",data.toString());
-        }
+    public void getData(){
+        database=Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"vt.db").allowMainThreadQueries().build();
+        dataList=database.getDao().getData();
+        adapter=new CustomAdapter(this,dataList);
+        recyclerView=findViewById(R.id.dataList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
-    }*/
+    }
 
 }
