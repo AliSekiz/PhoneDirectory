@@ -15,7 +15,7 @@ public interface DataDao {
     List<Data> getData();
 
     @Query("Select * From Contacts Where personNumber Like :personNumber")
-    Data getPerson(String personNumber);
+    List<Data> getPerson(String personNumber);
 
     @Insert
     void insertData(Data... data);

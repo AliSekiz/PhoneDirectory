@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     AppDatabase database;
     Data data;
     CustomAdapter adapter;
+    EditText searchText;
 
     RecyclerView recyclerView;
     List<Data>dataList;
@@ -34,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        database=Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"vt.db").allowMainThreadQueries().build();
+        recyclerView=findViewById(R.id.dataList);
+        searchText=findViewById(R.id.searchText);
         getData();
 
 
@@ -46,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
                 switch(menuItem.getItemId()){
                     case R.id.toolbarAddPerson:
                         showDialog();
+                        break;
+                    case R.id.toolbarSearchButton:
+                        getPerson();
+                        break;
                 }
                 return true;
             }
@@ -75,13 +82,17 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
     public void getData(){
-        database=Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"vt.db").allowMainThreadQueries().build();
         dataList=database.getDao().getData();
         adapter=new CustomAdapter(this,dataList);
-        recyclerView=findViewById(R.id.dataList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+    }
+    public void getPerson(){
+        dataList=database.getDao().getPerson(searchText.getText().toString());
+        adapter=new CustomAdapter(this,dataList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 
 }
